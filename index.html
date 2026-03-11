@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hashtag Publication — Educational Content Creators</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --accent: #c8392b;
+    --gold: #d4a843;
+    --muted: #6b6560;
+    --light: #ece7de;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: var(--ink);
+    border-bottom: 3px solid var(--accent);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--paper);
+    text-decoration: none; opacity: 0.75;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--accent); color: var(--white);
+    border: none; padding: 0.6rem 1.4rem; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #a02d22; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 76px;
+    position: relative; overflow: hidden;
+  }
+  .hero-left {
+    background: var(--ink);
+    padding: 7rem 4rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute; right: -2px; top: 0; bottom: 0; width: 4px;
+    background: var(--accent);
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 900;
+    line-height: 0.95; color: var(--paper);
+    margin-bottom: 2rem;
+  }
+  .hero-h1 em { color: var(--accent); font-style: normal; }
+  .hero-desc {
+    font-size: 1.05rem; line-height: 1.7;
+    color: rgba(245,240,232,0.65);
+    max-width: 400px; margin-bottom: 3rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--accent); color: var(--white);
+    border: none; padding: 0.9rem 2rem; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .btn-primary:hover { background: #a02d22; transform: translateY(-2px); }
+  .btn-outline {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    background: transparent; color: var(--paper);
+    border: 1px solid rgba(245,240,232,0.35); padding: 0.9rem 2rem;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-right {
+    background: var(--light);
+    padding: 7rem 4rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-bottom: 3rem;
+  }
+  .stat-box {
+    border-left: 3px solid var(--accent); padding-left: 1.2rem;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 900; color: var(--ink);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-top: 0.3rem;
+  }
+  .hero-boards {
+    background: var(--ink); padding: 2rem;
+  }
+  .boards-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .boards-list {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .board-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.05em;
+    border: 1px solid rgba(245,240,232,0.2);
+    color: var(--paper); padding: 0.35rem 0.8rem;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll::after { content: '↓'; font-size: 1rem; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* ─── TICKER ─── */
+  .ticker {
+    background: var(--accent);
+    overflow: hidden; padding: 0.6rem 0;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 22s linear infinite;
+  }
+  .ticker-inner span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--white); margin-right: 3rem;
+  }
+  .ticker-inner span::before { content: '# '; opacity: 0.6; }
+  @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* ─── ABOUT ─── */
+  #about {
+    display: grid; grid-template-columns: 1fr 2fr;
+    min-height: 80vh;
+  }
+  .about-sidebar {
+    background: var(--gold);
+    padding: 6rem 3rem;
+    display: flex; flex-direction: column; justify-content: center;
+    position: sticky; top: 76px; height: fit-content;
+  }
+  .about-sidebar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 900; line-height: 0.9;
+    writing-mode: vertical-rl; text-orientation: mixed;
+    transform: rotate(180deg);
+    color: var(--ink);
+  }
+  .about-content {
+    padding: 6rem 5rem;
+    background: var(--white);
+  }
+  .about-content p {
+    font-size: 1.15rem; line-height: 1.8; color: var(--muted);
+    margin-bottom: 1.5rem; max-width: 600px;
+  }
+  .about-content p strong { color: var(--ink); }
+  .about-pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 4rem;
+  }
+  .pillar {
+    border-top: 3px solid var(--accent); padding-top: 1.5rem;
+  }
+  .pillar-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900; color: var(--light);
+    line-height: 1; margin-bottom: 0.5rem;
+  }
+  .pillar h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 0.7rem;
+  }
+  .pillar p { font-size: 0.88rem; line-height: 1.6; color: var(--muted); }
+
+  /* ─── SERVICES ─── */
+  #services {
+    background: var(--ink);
+    padding: 7rem 4rem;
+  }
+  .section-header {
+    display: flex; align-items: baseline; gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 900;
+    color: var(--paper);
+  }
+  .section-header .line {
+    flex: 1; height: 1px; background: rgba(245,240,232,0.15);
+  }
+  .section-header .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: rgba(245,240,232,0.08);
+  }
+  .service-card {
+    background: var(--ink); padding: 3rem 2.5rem;
+    border: 1px solid rgba(245,240,232,0.08);
+    transition: background 0.3s, border-color 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { background: #1a1a1a; border-color: var(--accent); }
+  .service-icon {
+    font-size: 2rem; margin-bottom: 1.5rem;
+  }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--paper);
+    margin-bottom: 1rem;
+  }
+  .service-card p {
+    font-size: 0.9rem; line-height: 1.7;
+    color: rgba(245,240,232,0.55);
+  }
+  .service-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+  }
+  .stag {
+    font-family: 'Space Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    border: 1px solid rgba(200,57,43,0.4); color: var(--accent);
+    padding: 0.2rem 0.6rem;
+  }
+
+  /* ─── PUBLISHERS ─── */
+  #publishers {
+    padding: 7rem 4rem;
+    background: var(--paper);
+  }
+  .publishers-header {
+    display: flex; align-items: baseline; gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .publishers-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 900;
+  }
+  .publishers-header .line { flex: 1; height: 1px; background: rgba(13,13,13,0.12); }
+  .publishers-header .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pub-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .pub-card {
+    background: var(--white); padding: 2.5rem 2rem;
+    border: 1px solid var(--light);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .pub-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(13,13,13,0.1);
+    border-color: var(--accent);
+  }
+  .pub-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .pub-card h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.1rem;
+    color: var(--ink); margin-bottom: 0.5rem;
+  }
+  .pub-card p { font-size: 0.85rem; line-height: 1.6; color: var(--muted); }
+  .pub-subjects {
+    margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .subj-tag {
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    background: var(--light); color: var(--muted);
+    padding: 0.2rem 0.55rem;
+  }
+
+  /* ─── CTA BAND ─── */
+  #cta-band {
+    background: var(--accent);
+    padding: 5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  #cta-band h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900;
+    color: var(--white); max-width: 600px;
+  }
+  .btn-white {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--white); color: var(--accent);
+    border: none; padding: 1rem 2.5rem; cursor: pointer;
+    text-decoration: none; display: inline-block; white-space: nowrap;
+    transition: transform 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    padding: 4rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+  .footer-brand .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--paper); margin-bottom: 1rem;
+  }
+  .footer-brand .logo span { color: var(--accent); }
+  .footer-brand p { font-size: 0.88rem; line-height: 1.7; color: rgba(245,240,232,0.45); max-width: 280px; }
+  .footer-col h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul li a {
+    font-size: 0.88rem; color: rgba(245,240,232,0.5);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--paper); }
+  .footer-bottom {
+    background: var(--ink);
+    padding: 1.5rem 4rem;
+    border-top: 1px solid rgba(245,240,232,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.08em;
+    color: rgba(245,240,232,0.3);
+  }
+  .footer-bottom a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.08em;
+    color: var(--accent); text-decoration: none;
+  }
+
+  /* ─── ADMIN PANEL ─── */
+  #admin-panel {
+    display: none;
+    position: fixed; inset: 0; z-index: 1000;
+    background: #0f0f0f;
+    overflow-y: auto;
+  }
+  #admin-panel.open { display: flex; }
+
+  .admin-sidebar {
+    width: 260px; min-height: 100vh;
+    background: #161616;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex; flex-direction: column;
+    flex-shrink: 0;
+  }
+  .admin-logo {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .admin-logo .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 900; color: var(--paper);
+  }
+  .admin-logo .logo-text span { color: var(--accent); }
+  .admin-logo .admin-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-top: 0.2rem;
+  }
+  .admin-nav { flex: 1; padding: 1.5rem 0; }
+  .admin-nav-item {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.85rem 1.5rem; cursor: pointer;
+    font-size: 0.88rem; color: rgba(255,255,255,0.45);
+    transition: all 0.2s; border-left: 3px solid transparent;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .admin-nav-item:hover { color: var(--paper); background: rgba(255,255,255,0.04); }
+  .admin-nav-item.active {
+    color: var(--paper); background: rgba(200,57,43,0.1);
+    border-left-color: var(--accent);
+  }
+  .admin-nav-item .icon { font-size: 1.1rem; width: 22px; text-align: center; }
+  .admin-sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .admin-user {
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .admin-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700;
+    color: var(--white);
+  }
+  .admin-user-info .name { font-size: 0.88rem; color: var(--paper); font-weight: 500; }
+  .admin-user-info .role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .admin-main {
+    flex: 1; padding: 2.5rem;
+    overflow-y: auto;
+  }
+  .admin-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 2.5rem;
+  }
+  .admin-topbar h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--paper);
+  }
+  .admin-actions { display: flex; gap: 0.8rem; }
+  .btn-admin {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--accent); color: var(--white);
+    border: none; padding: 0.65rem 1.4rem; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-admin:hover { background: #a02d22; }
+  .btn-admin-ghost {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+    background: transparent; color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.15); padding: 0.65rem 1.4rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-admin-ghost:hover { color: var(--paper); border-color: rgba(255,255,255,0.35); }
+
+  /* Dashboard cards */
+  .dash-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1rem; margin-bottom: 2.5rem;
+  }
+  .dash-stat {
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.06);
+    padding: 1.5rem; position: relative; overflow: hidden;
+  }
+  .dash-stat::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent);
+  }
+  .dash-stat .ds-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); margin-bottom: 0.5rem;
+  }
+  .dash-stat .ds-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--paper); line-height: 1;
+  }
+  .dash-stat .ds-change {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; margin-top: 0.3rem; color: #4ade80;
+  }
+
+  /* Panels */
+  .admin-panel-view { display: none; }
+  .admin-panel-view.active { display: block; }
+
+  /* Upload section */
+  .upload-zone {
+    border: 2px dashed rgba(255,255,255,0.15);
+    padding: 3rem 2rem; text-align: center;
+    background: #1a1a1a; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 2rem;
+  }
+  .upload-zone:hover { border-color: var(--accent); background: rgba(200,57,43,0.05); }
+  .upload-zone .upload-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .upload-zone h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; color: var(--paper); margin-bottom: 0.5rem;
+  }
+  .upload-zone p { font-size: 0.85rem; color: rgba(255,255,255,0.35); margin-bottom: 1.5rem; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1);
+    color: var(--paper); padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-group select option { background: #1a1a1a; }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* Table */
+  .content-table { width: 100%; border-collapse: collapse; }
+  .content-table th {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); padding: 0.75rem 1rem;
+    text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .content-table td {
+    padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.88rem; color: rgba(255,255,255,0.7);
+    vertical-align: middle;
+  }
+  .content-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .status-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.25rem 0.7rem; display: inline-block;
+  }
+  .status-badge.approved { background: rgba(74,222,128,0.1); color: #4ade80; }
+  .status-badge.pending { background: rgba(212,168,67,0.1); color: var(--gold); }
+  .status-badge.draft { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); }
+  .status-badge.submitted { background: rgba(96,165,250,0.1); color: #60a5fa; }
+
+  .table-actions { display: flex; gap: 0.5rem; }
+  .taction {
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    background: transparent; border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.45); padding: 0.25rem 0.65rem;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .taction:hover { border-color: var(--accent); color: var(--accent); }
+  .taction.danger:hover { border-color: #ef4444; color: #ef4444; }
+
+  .card {
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.06);
+    padding: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: var(--paper);
+    margin-bottom: 1rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Publisher grid in admin */
+  .pub-admin-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+  }
+  .pub-admin-card {
+    background: #1e1e1e; border: 1px solid rgba(255,255,255,0.06);
+    padding: 1.5rem; transition: border-color 0.2s;
+  }
+  .pub-admin-card:hover { border-color: var(--accent); }
+  .pub-admin-card .pub-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--paper); margin-bottom: 0.3rem;
+  }
+  .pub-admin-card .pub-contact {
+    font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-bottom: 1rem;
+  }
+  .pub-admin-card .pub-stats {
+    display: flex; gap: 1.5rem; margin-bottom: 1rem;
+  }
+  .pub-stat { text-align: center; }
+  .pub-stat .n {
+    font-family: 'Space Mono', monospace; font-size: 1.2rem; color: var(--paper);
+  }
+  .pub-stat .l {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); display: block;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.75); align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #161616; border: 1px solid rgba(255,255,255,0.1);
+    padding: 2.5rem; width: 90%; max-width: 600px;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--paper); margin-bottom: 1.5rem;
+  }
+  .modal-footer {
+    display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 2rem;
+  }
+
+  /* Notification toast */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 3000;
+    background: #1a1a1a; border-left: 3px solid #4ade80;
+    padding: 1rem 1.5rem; display: none;
+    font-size: 0.88rem; color: var(--paper);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+  .toast.show { display: block; animation: slideIn 0.3s ease; }
+  @keyframes slideIn { from{transform:translateX(100px);opacity:0} to{transform:translateX(0);opacity:1} }
+
+  /* Login gate */
+  .admin-login-gate {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: #0f0f0f;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  .admin-login-gate.show { display: flex; }
+  .login-box {
+    width: 100%; max-width: 400px; padding: 3rem;
+    background: #161616; border: 1px solid rgba(255,255,255,0.08);
+  }
+  .login-box .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900;
+    color: var(--paper); margin-bottom: 0.3rem;
+  }
+  .login-box .logo span { color: var(--accent); }
+  .login-box .sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 2.5rem;
+  }
+  .login-box .form-group { margin-bottom: 1.2rem; }
+  .login-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; color: rgba(255,255,255,0.25); margin-top: 1.5rem; text-align: center;
+  }
+
+  /* Responsive basics */
+  @media(max-width: 1024px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-left, .hero-right { padding: 5rem 2.5rem; }
+    .hero-right { min-height: 60vh; }
+    #about { grid-template-columns: 1fr; }
+    .about-sidebar { writing-mode: horizontal-tb; padding: 4rem 2.5rem; }
+    .about-sidebar h2 { writing-mode: horizontal-tb; transform: none; font-size: 3rem; }
+    .about-content { padding: 4rem 2.5rem; }
+    .pub-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { grid-template-columns: 1fr 1fr; }
+    .dash-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo"><span>#</span>Hashtag Publication</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#publishers">Publishers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openAdminLogin()">Admin Panel</button>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Educational Content Creation</div>
+    <h1 class="hero-h1">Words That<br><em>Educate.</em><br>Content That<br>Endures.</h1>
+    <p class="hero-desc">Hashtag Publication crafts curriculum-aligned educational content for India's leading publishers — across CBSE, ICSE, and State Boards in English and Bengali.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#publishers" class="btn-outline">Our Publishers</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Publishers Served</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Chapters Delivered</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">1–10</div>
+        <div class="stat-label">Classes Covered</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Languages</div>
+      </div>
+    </div>
+    <div class="hero-boards">
+      <div class="boards-title">Curriculum Alignment</div>
+      <div class="boards-list">
+        <span class="board-tag">CBSE</span>
+        <span class="board-tag">ICSE</span>
+        <span class="board-tag">West Bengal Board</span>
+        <span class="board-tag">NCF 2023</span>
+        <span class="board-tag">NEP 2020</span>
+        <span class="board-tag">NCERT</span>
+        <span class="board-tag">Bengali Medium</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ── TICKER ── -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>Mathematics</span><span>Science</span><span>English</span><span>Bengali</span>
+    <span>Computer Science</span><span>EVS</span><span>Mental Maths</span><span>Social Studies</span>
+    <span>CBSE Aligned</span><span>NCF 2023</span><span>NEP 2020</span><span>Class 1–10</span>
+    <span>Mathematics</span><span>Science</span><span>English</span><span>Bengali</span>
+    <span>Computer Science</span><span>EVS</span><span>Mental Maths</span><span>Social Studies</span>
+    <span>CBSE Aligned</span><span>NCF 2023</span><span>NEP 2020</span><span>Class 1–10</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-sidebar">
+    <h2>About Us</h2>
+  </div>
+  <div class="about-content">
+    <p><strong>Hashtag Publication</strong> is a specialist educational content studio based in West Bengal, dedicated to producing rigorously accurate, curriculum-aligned learning materials for India's schools.</p>
+    <p>We partner with publishers to create <strong>textbooks, workbooks, worksheets, question banks, and digital content</strong> for Classes 1 through 10 — ensuring every page reflects the spirit of NCF 2023 and NEP 2020.</p>
+    <p>Our bilingual capability in <strong>English and Bengali</strong> gives us a unique edge in the Eastern Indian educational market, where quality vernacular content remains scarce.</p>
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h3>Accuracy First</h3>
+        <p>Every factual claim, every formula, every exercise is verified before delivery.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h3>NCF 2023 Ready</h3>
+        <p>Content is structured around competency-based learning frameworks from day one.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h3>On-Time Delivery</h3>
+        <p>Publishers trust our reliable timelines and responsive communication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section-header">
+    <span class="label">What We Do</span>
+    <div class="line"></div>
+    <h2>Our Services</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📚</div>
+      <h3>Textbook Writing</h3>
+      <p>Full-length, structured textbooks aligned to NCERT/State syllabi. Each chapter includes theory, examples, and graded exercises.</p>
+      <div class="service-tags">
+        <span class="stag">Class 1–10</span><span class="stag">All Subjects</span><span class="stag">Bilingual</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✏️</div>
+      <h3>Workbooks & Worksheets</h3>
+      <p>Practice-focused materials with varied question types, mental maths drills, and activity-based tasks for young learners.</p>
+      <div class="service-tags">
+        <span class="stag">Mental Maths</span><span class="stag">Activity Based</span><span class="stag">Printable</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">❓</div>
+      <h3>Question Banks</h3>
+      <p>Comprehensive question banks for Classes 6–10 aligned to CBSE, ICSE, and West Bengal Board exam patterns.</p>
+      <div class="service-tags">
+        <span class="stag">MCQ</span><span class="stag">Short Answer</span><span class="stag">Long Answer</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💻</div>
+      <h3>Computer Science Content</h3>
+      <p>Age-appropriate computing textbooks covering MS Office, AI literacy, programming concepts, and digital safety.</p>
+      <div class="service-tags">
+        <span class="stag">Class 1–8</span><span class="stag">Hands-On</span><span class="stag">NCF Aligned</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔡</div>
+      <h3>Bengali Language Content</h3>
+      <p>Specialised content creation in Bengali for the Eastern Indian market — textbooks, solutions, and supplementary materials.</p>
+      <div class="service-tags">
+        <span class="stag">বাংলা মাধ্যম</span><span class="stag">WB Board</span><span class="stag">Bilingual</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🗂️</div>
+      <h3>Content Rewriting & Editing</h3>
+      <p>Reworking existing content with fresh examples, updated curriculum alignment, and improved pedagogical sequencing.</p>
+      <div class="service-tags">
+        <span class="stag">Rewrite</span><span class="stag">Proofreading</span><span class="stag">NCF 2023</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PUBLISHERS ── -->
+<section id="publishers">
+  <div class="publishers-header">
+    <h2>Publisher Partners</h2>
+    <div class="line"></div>
+    <span class="label">Who We Work With</span>
+  </div>
+  <div class="pub-grid">
+    <div class="pub-card">
+      <div class="pub-icon">🏛️</div>
+      <h3>Oxford University Press</h3>
+      <p>Science and Mathematics textbooks for Classes 3–8, CBSE aligned.</p>
+      <div class="pub-subjects"><span class="subj-tag">Maths</span><span class="subj-tag">Science</span><span class="subj-tag">CBSE</span></div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-icon">📖</div>
+      <h3>S. Chand & Company</h3>
+      <p>Workbooks and question banks for Classes 6–10 across multiple subjects.</p>
+      <div class="pub-subjects"><span class="subj-tag">Maths</span><span class="subj-tag">English</span><span class="subj-tag">Science</span></div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-icon">✨</div>
+      <h3>Navneet Publications</h3>
+      <p>Primary school activity books and mental maths workbooks.</p>
+      <div class="pub-subjects"><span class="subj-tag">Mental Maths</span><span class="subj-tag">Class 1–5</span></div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-icon">🌿</div>
+      <h3>Ratna Sagar</h3>
+      <p>Computer science and EVS content for primary and middle school.</p>
+      <div class="pub-subjects"><span class="subj-tag">Computer</span><span class="subj-tag">EVS</span><span class="subj-tag">Class 3–7</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="contact" style="background:var(--paper);padding:7rem 4rem;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Get In Touch</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,3rem);font-weight:900;line-height:1.05;margin-bottom:1.5rem;">Let's Build Something <em style="font-style:normal;color:var(--accent);">Together</em></h2>
+        <p style="font-size:1rem;line-height:1.8;color:var(--muted);margin-bottom:2rem;">Whether you need a complete textbook series or a targeted content refresh, we'd love to discuss your project.</p>
+        <div style="display:flex;flex-direction:column;gap:0.8rem;">
+          <div style="display:flex;gap:1rem;align-items:center;">
+            <span style="font-size:1.1rem;">📧</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--ink);">contact@hashtagpublication.in</span>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:center;">
+            <span style="font-size:1.1rem;">📍</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--ink);">West Bengal, India</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="form-group" style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Your Name</label>
+            <input type="text" placeholder="Publisher / Author name" style="background:var(--white);border:1px solid var(--light);color:var(--ink);padding:0.75rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
+          </div>
+          <div class="form-group" style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Email Address</label>
+            <input type="email" placeholder="your@publisher.com" style="background:var(--white);border:1px solid var(--light);color:var(--ink);padding:0.75rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;">
+          </div>
+          <div class="form-group" style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Project Brief</label>
+            <textarea placeholder="Describe your content requirement..." rows="4" style="background:var(--white);border:1px solid var(--light);color:var(--ink);padding:0.75rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;resize:vertical;"></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%;text-align:center;" onclick="showToast('Message sent! We\'ll be in touch within 24 hours.')">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="cta-band">
+  <h2>Ready to elevate your educational content?</h2>
+  <button class="btn-white" onclick="openAdminLogin()">Access Admin Panel →</button>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo"><span>#</span>Hashtag Publication</div>
+    <p>Crafting curriculum-aligned educational content for India's students and publishers since 2020.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <ul>
+      <li><a href="#">Textbook Writing</a></li>
+      <li><a href="#">Workbooks</a></li>
+      <li><a href="#">Question Banks</a></li>
+      <li><a href="#">CS Content</a></li>
+      <li><a href="#">Bengali Content</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Curricula</h4>
+    <ul>
+      <li><a href="#">CBSE</a></li>
+      <li><a href="#">ICSE</a></li>
+      <li><a href="#">WB Board</a></li>
+      <li><a href="#">NCF 2023</a></li>
+      <li><a href="#">NEP 2020</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Our Work</a></li>
+      <li><a href="#">Publishers</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" onclick="openAdminLogin();return false;">Admin Login</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2025 Hashtag Publication. All rights reserved.</p>
+  <a href="#" onclick="openAdminLogin();return false;">Admin Panel →</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     ADMIN LOGIN GATE
+══════════════════════════════════════ -->
+<div class="admin-login-gate" id="adminLoginGate">
+  <div class="login-box">
+    <div class="logo"><span>#</span>Hashtag Publication</div>
+    <div class="sub">Admin Portal — Secure Access</div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="loginUser" placeholder="admin" value="admin">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="••••••••" value="admin123">
+    </div>
+    <div style="margin-top:1.5rem;display:flex;gap:0.8rem;">
+      <button class="btn-admin" style="flex:1;" onclick="doLogin()">Sign In →</button>
+      <button class="btn-admin-ghost" onclick="closeAdminLogin()">Cancel</button>
+    </div>
+    <div class="login-hint">Demo credentials: admin / admin123</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ADMIN PANEL
+══════════════════════════════════════ -->
+<div id="admin-panel">
+  <!-- Sidebar -->
+  <div class="admin-sidebar">
+    <div class="admin-logo">
+      <div class="logo-text"><span>#</span>Hashtag</div>
+      <div class="admin-badge">Admin Panel</div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav-item active" onclick="switchTab('dashboard', this)">
+        <span class="icon">📊</span> Dashboard
+      </div>
+      <div class="admin-nav-item" onclick="switchTab('upload', this)">
+        <span class="icon">⬆️</span> Upload Work
+      </div>
+      <div class="admin-nav-item" onclick="switchTab('content', this)">
+        <span class="icon">📄</span> My Content
+      </div>
+      <div class="admin-nav-item" onclick="switchTab('publishers', this)">
+        <span class="icon">🏢</span> Publishers
+      </div>
+      <div class="admin-nav-item" onclick="switchTab('submissions', this)">
+        <span class="icon">📬</span> Submissions
+      </div>
+      <div class="admin-nav-item" onclick="switchTab('settings', this)">
+        <span class="icon">⚙️</span> Settings
+      </div>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <div class="admin-user">
+        <div class="admin-avatar">H</div>
+        <div class="admin-user-info">
+          <div class="name">Hashtag Admin</div>
+          <div class="role">Content Manager</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main area -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1 id="adminTitle">Dashboard</h1>
+      <div class="admin-actions">
+        <button class="btn-admin-ghost" onclick="closeAdmin()">← Back to Site</button>
+        <button class="btn-admin" onclick="switchTab('upload', document.querySelector('[onclick*=upload]'))">+ Upload Work</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="admin-panel-view active" id="tab-dashboard">
+      <div class="dash-stats">
+        <div class="dash-stat">
+          <div class="ds-label">Total Uploads</div>
+          <div class="ds-value" id="totalUploads">12</div>
+          <div class="ds-change">↑ 3 this month</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Approved</div>
+          <div class="ds-value" id="approvedCount">7</div>
+          <div class="ds-change" style="color:var(--gold);">2 pending review</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Publishers</div>
+          <div class="ds-value">4</div>
+          <div class="ds-change">Active partnerships</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Subjects</div>
+          <div class="ds-value">6</div>
+          <div class="ds-change">Across all grades</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Recent Activity</h3>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Title</th><th>Publisher</th><th>Subject</th><th>Class</th><th>Status</th><th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="dashRecentTable">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- UPLOAD -->
+    <div class="admin-panel-view" id="tab-upload">
+      <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+        <div class="upload-icon">📁</div>
+        <h3>Drop files here or click to browse</h3>
+        <p>Supports .docx, .pdf, .xlsx, .pptx — Max 50MB per file</p>
+        <button class="btn-admin" onclick="event.stopPropagation()">Choose Files</button>
+        <input type="file" id="fileInput" style="display:none" multiple onchange="handleFileSelect(this)">
+      </div>
+      <div class="card">
+        <h3>Work Details</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Work Title</label>
+            <input type="text" id="workTitle" placeholder="e.g. Class 5 Mathematics Chapter 3">
+          </div>
+          <div class="form-group">
+            <label>Publisher</label>
+            <select id="workPublisher">
+              <option value="">Select Publisher</option>
+              <option>Oxford University Press</option>
+              <option>S. Chand & Company</option>
+              <option>Navneet Publications</option>
+              <option>Ratna Sagar</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select id="workSubject">
+              <option value="">Select Subject</option>
+              <option>Mathematics</option>
+              <option>Science</option>
+              <option>English</option>
+              <option>Bengali</option>
+              <option>Computer Science</option>
+              <option>EVS</option>
+              <option>Social Studies</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Class</label>
+            <select id="workClass">
+              <option value="">Select Class</option>
+              <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+              <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+              <option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Content Type</label>
+            <select id="workType">
+              <option value="">Select Type</option>
+              <option>Textbook Chapter</option>
+              <option>Workbook</option>
+              <option>Worksheet</option>
+              <option>Question Bank</option>
+              <option>Teacher's Guide</option>
+              <option>Answer Key</option>
+              <option>Complete Book</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Curriculum Board</label>
+            <select id="workBoard">
+              <option value="">Select Board</option>
+              <option>CBSE</option>
+              <option>ICSE</option>
+              <option>West Bengal Board</option>
+              <option>All Boards</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Description / Notes for Publisher</label>
+            <textarea id="workDesc" placeholder="Add any notes, chapter references, or special instructions for the publisher..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Language</label>
+            <select id="workLang">
+              <option>English</option>
+              <option>Bengali</option>
+              <option>Bilingual (English + Bengali)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Version / Revision</label>
+            <input type="text" id="workVersion" placeholder="e.g. v1.0, Final Draft">
+          </div>
+        </div>
+        <div style="display:flex;gap:1rem;margin-top:2rem;">
+          <button class="btn-admin" onclick="submitWork()">Submit to Publisher</button>
+          <button class="btn-admin-ghost" onclick="saveAsDraft()">Save as Draft</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="admin-panel-view" id="tab-content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <div style="display:flex;gap:0.8rem;">
+          <select style="background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);padding:0.5rem 1rem;font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;outline:none;" onchange="filterContent(this.value)">
+            <option value="">All Status</option>
+            <option value="approved">Approved</option>
+            <option value="pending">Pending</option>
+            <option value="draft">Draft</option>
+            <option value="submitted">Submitted</option>
+          </select>
+          <select style="background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);padding:0.5rem 1rem;font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;outline:none;">
+            <option value="">All Publishers</option>
+            <option>Oxford University Press</option>
+            <option>S. Chand & Company</option>
+            <option>Navneet Publications</option>
+            <option>Ratna Sagar</option>
+          </select>
+        </div>
+        <button class="btn-admin" onclick="switchTab('upload', document.querySelector('[onclick*=upload]'))">+ New Upload</button>
+      </div>
+      <div class="card" style="padding:0;">
+        <table class="content-table" style="margin:0;">
+          <thead>
+            <tr>
+              <th>Title</th><th>Publisher</th><th>Subject</th><th>Class</th><th>Board</th><th>Status</th><th>Uploaded</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="contentTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PUBLISHERS -->
+    <div class="admin-panel-view" id="tab-publishers">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
+        <button class="btn-admin" onclick="openAddPublisher()">+ Add Publisher</button>
+      </div>
+      <div class="pub-admin-grid" id="publisherGrid"></div>
+    </div>
+
+    <!-- SUBMISSIONS -->
+    <div class="admin-panel-view" id="tab-submissions">
+      <div class="card">
+        <h3>Submission History</h3>
+        <table class="content-table">
+          <thead>
+            <tr><th>Title</th><th>Publisher</th><th>Submitted On</th><th>Due Date</th><th>Status</th><th>Feedback</th></tr>
+          </thead>
+          <tbody id="submissionsTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="admin-panel-view" id="tab-settings">
+      <div class="form-grid" style="max-width:700px;">
+        <div class="card full" style="grid-column:1/-1;">
+          <h3>Account Settings</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Company Name</label>
+              <input type="text" value="Hashtag Publication">
+            </div>
+            <div class="form-group">
+              <label>Admin Email</label>
+              <input type="email" value="admin@hashtagpublication.in">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="+91 XXXXX XXXXX">
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" value="West Bengal, India">
+            </div>
+            <div class="form-group full">
+              <label>Company Bio</label>
+              <textarea>Specialist educational content studio producing curriculum-aligned materials for India's leading publishers.</textarea>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;display:flex;gap:0.8rem;">
+            <button class="btn-admin" onclick="showToast('Settings saved successfully!')">Save Changes</button>
+          </div>
+        </div>
+        <div class="card" style="grid-column:1/-1;">
+          <h3>Change Password</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Current Password</label>
+              <input type="password" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" placeholder="••••••••">
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;">
+            <button class="btn-admin" onclick="showToast('Password updated!')">Update Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /admin-main -->
+</div><!-- /admin-panel -->
+
+<!-- Modal for adding publisher -->
+<div class="modal-overlay" id="addPubModal">
+  <div class="modal">
+    <h2>Add New Publisher</h2>
+    <div class="form-grid">
+      <div class="form-group full"><label>Publisher Name</label><input type="text" id="newPubName" placeholder="Publisher name"></div>
+      <div class="form-group"><label>Contact Person</label><input type="text" id="newPubContact" placeholder="Name"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="newPubEmail" placeholder="publisher@example.com"></div>
+      <div class="form-group full"><label>Subjects / Notes</label><input type="text" id="newPubSubjects" placeholder="e.g. Maths, Science, Class 1–8"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-admin-ghost" onclick="closePubModal()">Cancel</button>
+      <button class="btn-admin" onclick="addPublisher()">Add Publisher</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ══ JS ══ -->
+<script>
+// ── DATA ──
+let contentItems = [
+  { id:1, title:'Class 4 Computer Science – Chapter 2: MS Word', publisher:'Oxford University Press', subject:'Computer Science', cls:'Class 4', board:'CBSE', status:'approved', date:'2025-05-12', lang:'English' },
+  { id:2, title:'Class 3 Mathematics – Addition Chapter', publisher:'S. Chand & Company', subject:'Mathematics', cls:'Class 3', board:'CBSE', status:'approved', date:'2025-05-08', lang:'English' },
+  { id:3, title:'Mental Maths Workbook Grade 4', publisher:'Navneet Publications', subject:'Mathematics', cls:'Class 4', board:'All Boards', status:'pending', date:'2025-05-15', lang:'English' },
+  { id:4, title:'Bengali Math Workbook – Class 6', publisher:'S. Chand & Company', subject:'Bengali', cls:'Class 6', board:'West Bengal Board', status:'approved', date:'2025-04-22', lang:'Bengali' },
+  { id:5, title:'Class 7 Maths – Large Numbers Chapter', publisher:'Oxford University Press', subject:'Mathematics', cls:'Class 7', board:'CBSE', status:'submitted', date:'2025-05-18', lang:'English' },
+  { id:6, title:'Class 5 Science – Photosynthesis', publisher:'Ratna Sagar', subject:'Science', cls:'Class 5', board:'ICSE', status:'draft', date:'2025-05-20', lang:'English' },
+  { id:7, title:'Class 1 Maths – Division Workbook', publisher:'Navneet Publications', subject:'Mathematics', cls:'Class 1', board:'CBSE', status:'approved', date:'2025-04-10', lang:'English' },
+];
+
+let publishers = [
+  { name:'Oxford University Press', contact:'Rajeev Sharma', email:'rajeev@oup.co.in', subjects:'Maths, Science, Class 3–8', uploads:3, approved:2 },
+  { name:'S. Chand & Company', contact:'Priya Mehta', email:'priya@schand.com', subjects:'Maths, Bengali, Class 3–10', uploads:4, approved:3 },
+  { name:'Navneet Publications', contact:'Anita Joshi', email:'anita@navneet.com', subjects:'Mental Maths, Activity Books, Class 1–5', uploads:3, approved:2 },
+  { name:'Ratna Sagar', contact:'Sourav Bose', email:'sourav@ratnasagar.co.in', subjects:'Computer, EVS, Class 3–7', uploads:2, approved:0 },
+];
+
+let submissions = [
+  { title:'Class 4 Computer Science – Chapter 2', publisher:'Oxford University Press', submitted:'2025-05-10', due:'2025-05-25', status:'approved', feedback:'Excellent work. Approved for print.' },
+  { title:'Mental Maths Workbook Grade 4', publisher:'Navneet Publications', submitted:'2025-05-15', due:'2025-05-30', status:'pending', feedback:'Under review' },
+  { title:'Class 7 Maths – Large Numbers', publisher:'Oxford University Press', submitted:'2025-05-18', due:'2025-06-01', status:'submitted', feedback:'Awaiting review' },
+  { title:'Bengali Math Workbook – Class 6', publisher:'S. Chand & Company', submitted:'2025-04-20', due:'2025-05-05', status:'approved', feedback:'Very good. Minor edits requested on p.34.' },
+];
+
+// ── RENDER ──
+function renderDashboard() {
+  const tbody = document.getElementById('dashRecentTable');
+  const recent = [...contentItems].slice(0, 5);
+  tbody.innerHTML = recent.map(i => `
+    <tr>
+      <td style="color:var(--paper);">${i.title}</td>
+      <td>${i.publisher.split(' ')[0]}</td>
+      <td>${i.subject}</td>
+      <td>${i.cls}</td>
+      <td><span class="status-badge ${i.status}">${i.status}</span></td>
+      <td>${i.date}</td>
+    </tr>
+  `).join('');
+  document.getElementById('totalUploads').textContent = contentItems.length;
+  document.getElementById('approvedCount').textContent = contentItems.filter(i=>i.status==='approved').length;
+}
+
+function renderContent(filter='') {
+  const tbody = document.getElementById('contentTable');
+  const items = filter ? contentItems.filter(i=>i.status===filter) : contentItems;
+  tbody.innerHTML = items.map(i => `
+    <tr>
+      <td style="color:var(--paper);max-width:220px;">${i.title}</td>
+      <td>${i.publisher.split(' ').slice(0,2).join(' ')}</td>
+      <td>${i.subject}</td>
+      <td>${i.cls}</td>
+      <td>${i.board}</td>
+      <td><span class="status-badge ${i.status}">${i.status}</span></td>
+      <td>${i.date}</td>
+      <td>
+        <div class="table-actions">
+          <button class="taction">View</button>
+          <button class="taction">Edit</button>
+          <button class="taction danger" onclick="deleteItem(${i.id})">Del</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderPublishers() {
+  const grid = document.getElementById('publisherGrid');
+  grid.innerHTML = publishers.map((p,idx) => `
+    <div class="pub-admin-card">
+      <div class="pub-name">${p.name}</div>
+      <div class="pub-contact">📧 ${p.email}</div>
+      <div class="pub-stats">
+        <div class="pub-stat"><div class="n">${p.uploads}</div><span class="l">Uploads</span></div>
+        <div class="pub-stat"><div class="n">${p.approved}</div><span class="l">Approved</span></div>
+      </div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:1rem;">${p.subjects}</div>
+      <div class="table-actions">
+        <button class="taction" onclick="switchTab('upload', document.querySelector('[onclick*=upload]'));document.getElementById('workPublisher').value='${p.name}'">Upload</button>
+        <button class="taction danger" onclick="removePub(${idx})">Remove</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderSubmissions() {
+  const tbody = document.getElementById('submissionsTable');
+  tbody.innerHTML = submissions.map(s => `
+    <tr>
+      <td style="color:var(--paper);">${s.title}</td>
+      <td>${s.publisher.split(' ')[0]}</td>
+      <td>${s.submitted}</td>
+      <td>${s.due}</td>
+      <td><span class="status-badge ${s.status}">${s.status}</span></td>
+      <td style="font-size:0.8rem;color:rgba(255,255,255,0.45);max-width:180px;">${s.feedback}</td>
+    </tr>
+  `).join('');
+}
+
+// ── NAV TABS ──
+function switchTab(id, el) {
+  document.querySelectorAll('.admin-panel-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = {dashboard:'Dashboard',upload:'Upload Work',content:'My Content',publishers:'Publisher Directory',submissions:'Submissions',settings:'Settings'};
+  document.getElementById('adminTitle').textContent = titles[id] || id;
+  if (id==='content') renderContent();
+  if (id==='publishers') renderPublishers();
+  if (id==='submissions') renderSubmissions();
+}
+
+function filterContent(val) { renderContent(val); }
+
+// ── LOGIN ──
+function openAdminLogin() { document.getElementById('adminLoginGate').classList.add('show'); }
+function closeAdminLogin() { document.getElementById('adminLoginGate').classList.remove('show'); }
+function doLogin() {
+  const u = document.getElementById('loginUser').value;
+  const p = document.getElementById('loginPass').value;
+  if (u === 'admin' && p === 'admin123') {
+    closeAdminLogin();
+    document.getElementById('admin-panel').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    renderDashboard();
+  } else {
+    showToastError('Invalid credentials. Try admin / admin123');
+  }
+}
+function closeAdmin() {
+  document.getElementById('admin-panel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── UPLOAD ──
+function handleFileSelect(input) {
+  if (input.files.length > 0) {
+    const names = Array.from(input.files).map(f => f.name).join(', ');
+    showToast(`Selected: ${names}`);
+  }
+}
+
+function submitWork() {
+  const title = document.getElementById('workTitle').value.trim();
+  const publisher = document.getElementById('workPublisher').value;
+  const subject = document.getElementById('workSubject').value;
+  const cls = document.getElementById('workClass').value;
+  if (!title || !publisher || !subject || !cls) {
+    showToastError('Please fill in Title, Publisher, Subject, and Class.');
+    return;
+  }
+  const board = document.getElementById('workBoard').value || 'CBSE';
+  const lang = document.getElementById('workLang').value || 'English';
+  const today = new Date().toISOString().slice(0,10);
+  contentItems.unshift({ id: Date.now(), title, publisher, subject, cls, board, status:'submitted', date:today, lang });
+  submissions.unshift({ title, publisher, submitted:today, due:'—', status:'submitted', feedback:'Awaiting review' });
+  showToast('Work submitted to publisher successfully!');
+  ['workTitle','workDesc','workVersion'].forEach(id => document.getElementById(id).value='');
+  ['workPublisher','workSubject','workClass','workType','workBoard'].forEach(id => document.getElementById(id).value='');
+  renderDashboard();
+}
+
+function saveAsDraft() {
+  const title = document.getElementById('workTitle').value.trim() || 'Untitled Draft';
+  const today = new Date().toISOString().slice(0,10);
+  contentItems.unshift({ id:Date.now(), title, publisher: document.getElementById('workPublisher').value || '—', subject: document.getElementById('workSubject').value || '—', cls: document.getElementById('workClass').value || '—', board:'—', status:'draft', date:today, lang:'English' });
+  showToast('Saved as draft.');
+  renderDashboard();
+}
+
+function deleteItem(id) {
+  contentItems = contentItems.filter(i => i.id !== id);
+  renderContent();
+  renderDashboard();
+  showToast('Item removed.');
+}
+
+// ── PUBLISHER ──
+function openAddPublisher() { document.getElementById('addPubModal').classList.add('open'); }
+function closePubModal() { document.getElementById('addPubModal').classList.remove('open'); }
+function addPublisher() {
+  const name = document.getElementById('newPubName').value.trim();
+  if (!name) { showToastError('Publisher name required.'); return; }
+  publishers.push({
+    name, contact: document.getElementById('newPubContact').value,
+    email: document.getElementById('newPubEmail').value,
+    subjects: document.getElementById('newPubSubjects').value,
+    uploads: 0, approved: 0
+  });
+  closePubModal();
+  renderPublishers();
+  showToast(`${name} added to publishers.`);
+  ['newPubName','newPubContact','newPubEmail','newPubSubjects'].forEach(id => document.getElementById(id).value='');
+}
+function removePub(idx) {
+  publishers.splice(idx, 1);
+  renderPublishers();
+  showToast('Publisher removed.');
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.style.borderLeftColor = '#4ade80';
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function showToastError(msg) {
+  const t = document.getElementById('toast');
+  t.style.borderLeftColor = '#ef4444';
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// Init
+renderDashboard();
+</script>
+</body>
+</html>
